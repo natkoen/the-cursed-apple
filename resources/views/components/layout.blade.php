@@ -1,5 +1,5 @@
 @props([
-    'title' => 'The Cursed Apple'
+    'title' => 'Home'
 ])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $title }}</title>
+    <title>{{ $title }} | {{ config('app.name') }}</title>
 
     <style>
         .max-w-400 {
@@ -29,11 +29,9 @@
 </head>
 
 <body>
-<nav>
-    <a href="/">Home</a>
-    <a href="/about">About Us</a>
-    <a href="/builds">Builds</a>
-</nav>
+
+@include('layouts.navpartial')
+
 {{ $slot }}
 
 

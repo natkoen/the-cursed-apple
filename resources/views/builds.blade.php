@@ -1,5 +1,7 @@
-<x-layout title="Builds for {{$name}}">
+<x-layout title="Builds">
     <x-card>
-        <p>builds for {{$name}}</p>
+        @foreach($heroes as $hero)
+            <p>{{$hero}}</p>
+        @endforeach
     </x-card>
 </x-layout>

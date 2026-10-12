@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BuildsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,24 +16,11 @@ Route::get('/', function () {
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 //builds page route
-Route::get('builds/{name?}', function (?string $name = null) {
-    return view ('builds', [
-        'name' => $name
-    ]);
-})->name('builds');
+Route::get('/builds', [BuildsController::class, 'show'])->name('builds');
 
-// Builds page named route
-//Route::get('builds/hero', function () {
-//    return view('builds');
-//})-> name('hero');
-
+Route::get('/build-creator', [BuildsController::class, 'create'])->name('build-creator');
 //contact page route
-Route::get('/contact', function () {
-    $company = 'The Cursed Apple';
-    return view('contact', [
-        'company' => $company
-    ]);
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 //some kinda dashboard for users?
 Route::get('/dashboard', function () {
