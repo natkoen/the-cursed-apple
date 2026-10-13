@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BuildController;
+use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BuildsController;
@@ -16,7 +18,8 @@ Route::get('/', function () {
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 //builds page route
-Route::get('/builds', [BuildsController::class, 'show'])->name('builds');
+Route::resource('/builds', BuildController::class);
+Route::resource('/heroes', HeroController::class);
 
 Route::get('/build-creator', [BuildsController::class, 'create'])->name('build-creator');
 //contact page route

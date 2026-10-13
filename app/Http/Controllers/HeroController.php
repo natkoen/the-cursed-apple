@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\empty;
+use App\Models\Hero;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class HeroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $heroes = Hero::all();
+        return view('heroes.index', compact('heroes'));
     }
 
     /**
@@ -34,15 +35,15 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(empty $empty)
+    public function show(Hero $hero)
     {
-        //
+        return view('heroes.show', compact('hero'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(empty $empty)
+    public function edit(Hero $hero)
     {
         //
     }
@@ -50,7 +51,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, empty $empty)
+    public function update(Request $request, Hero $hero)
     {
         //
     }
@@ -58,7 +59,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(empty $empty)
+    public function destroy(Hero $hero)
     {
         //
     }

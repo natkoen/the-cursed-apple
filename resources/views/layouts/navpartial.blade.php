@@ -3,7 +3,11 @@
         Home
     </x-navlink>
 
-    <x-navlink href="{{route('builds')}}"   :active="request()->routeIs('builds')">
+    <x-navlink href="{{route('heroes.index')}}"   :active="request()->routeIs('heroes.index')">
+        Heroes
+    </x-navlink>
+
+    <x-navlink href="{{route('builds.index')}}"   :active="request()->routeIs('builds.index')">
         Builds
     </x-navlink>
 
