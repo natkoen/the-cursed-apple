@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Build;
 use App\Models\Hero;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BuildController extends Controller
@@ -14,7 +16,8 @@ class BuildController extends Controller
     public function index()
     {
         $builds = Build::all();
-        return view('builds.index', compact('builds'));
+        $heroes = Hero::all();
+        return view('builds.index', compact('builds', 'heroes'));
     }
 
     /**
@@ -22,7 +25,10 @@ class BuildController extends Controller
      */
     public function create()
     {
-        return view('builds.create');
+        $heroes = Hero::all();
+        $tags = Tag::all();
+
+        return view('builds.create', compact('heroes', 'tags'));
     }
 
     /**
@@ -31,6 +37,8 @@ class BuildController extends Controller
     public function store(Request $request)
     {
         $build = new Build();
+        $build->user_id = auth()->id();
+        $build->hero_id = $request->input('hero_id');
         $build->name = $request->input('name');
         $build->description = $request->input('description');
         $build->build_image = $request->input('build_image');
@@ -45,8 +53,8 @@ class BuildController extends Controller
      */
     public function show(Build $build)
     {
-
-        return view('builds.show', compact('build'));
+        $user = User::where('id', $build->user_id)->first();
+        return view('builds.show', compact('build', 'user'));
     }
 
     /**
@@ -54,7 +62,7 @@ class BuildController extends Controller
      */
     public function edit(Build $build)
     {
-        //
+        return view('builds.edit', compact('build'));
     }
 
     /**
@@ -62,7 +70,13 @@ class BuildController extends Controller
      */
     public function update(Request $request, Build $build)
     {
-        //
+        $build->name = $request->input('name');
+        $build->description = $request->input('description');
+        $build->build_image = $request->input('build_image');
+        $build->build_code = $request->input('build_code');
+        $build->updated_at = $request->input('updated_at');
+        $build->save();
+        return redirect()->route('builds.index')->with('success', 'Build updated successfully');
     }
 
     /**
@@ -70,6 +84,7 @@ class BuildController extends Controller
      */
     public function destroy(Build $build)
     {
-        //
+        $build->delete();
+        return redirect()->route('builds.index')->with('success', 'Build deleted successfully');
     }
 }

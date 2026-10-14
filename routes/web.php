@@ -5,7 +5,6 @@ use App\Http\Controllers\BuildController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\BuildsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,7 +20,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::resource('/builds', BuildController::class);
 Route::resource('/heroes', HeroController::class);
 
-Route::get('/build-creator', [BuildsController::class, 'create'])->name('build-creator');
 //contact page route
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 

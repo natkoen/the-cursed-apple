@@ -6,5 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Build extends Model
 {
-    //
+    protected $fillable = [
+
+    ];
+
+    public function hero() {
+        return $this->belongsTo(Hero::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tags() {
+        return $this->hasMany(Tag::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }

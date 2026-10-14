@@ -1,14 +1,14 @@
 <x-layout title="Create Build">
     <form method="POST" action="{{route('builds.store')}}">
 
-        {{--        <div>--}}
-        {{--            <label for="hero_id">Hero</label>--}}
-        {{--            <select id="hero_id" name="hero_id">--}}
-        {{--                @foreach($heroes as $hero)--}}
-        {{--                    <option value="{{$hero->id}}">{{$hero->name}}</option>--}}
-        {{--                @endforeach--}}
-        {{--            </select>--}}
-        {{--        </div>--}}
+                <div>
+                    <label for="hero_id">Hero</label>
+                    <select id="hero_id" name="hero_id">
+                        @foreach($heroes as $hero)
+                            <option value="{{$hero->id}}">{{$hero->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
         <div>
             <label for="name">Name</label>
@@ -28,6 +28,16 @@
             <label for="image">Build Screenshot</label>
             <input type="text" id="build_image" name="build_image" class="border-2"/>
         </div>
+
+        <div>
+            <label for="tag_id">Tags</label>
+            <select  id="tag_id" name="tag_id">
+                @foreach($tags as $tag)
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div>
             <input type="hidden" name="created_at" value="{{ now() }}">
         </div>

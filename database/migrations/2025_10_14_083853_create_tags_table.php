@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('builds', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
             $table->string('name');
-            $table->text('description');
-            $table->string('build_image');
-            $table->string('build_code');
-            $table->bigInteger('tag_id');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('builds');
+        Schema::dropIfExists('tags');
     }
 };

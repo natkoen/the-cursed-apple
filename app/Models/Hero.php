@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hero extends Model
 {
-    //
+    public function builds() {
+        return $this->hasMany(Build::class);
+    }
 }
