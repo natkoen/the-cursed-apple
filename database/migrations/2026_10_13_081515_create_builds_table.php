@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('name');
             $table->text('description');
-            $table->string('image_url');
-            $table->string('code');
+            $table->string('build_image');
+            $table->string('build_code');
             $table->bigInteger('tag_id');
             $table->timestamp('created_at')->useCurrent();
         });

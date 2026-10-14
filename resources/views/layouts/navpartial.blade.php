@@ -22,7 +22,7 @@
 
     @if (Route::has('login'))
             @auth
-                <x-navlink href="{{route('build-creator')}}" :active="request()->routeIs('build-creator')">
+                <x-navlink href="{{route('builds.create')}}" :active="request()->routeIs('builds.create')">
                     Create a Build
                 </x-navlink>
 

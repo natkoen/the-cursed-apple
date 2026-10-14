@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
+use App\Models\Hero;
 use Illuminate\Http\Request;
 
 class BuildController extends Controller
@@ -21,7 +22,7 @@ class BuildController extends Controller
      */
     public function create()
     {
-        //
+        return view('builds.create');
     }
 
     /**
@@ -29,7 +30,14 @@ class BuildController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $build = new Build();
+        $build->name = $request->input('name');
+        $build->description = $request->input('description');
+        $build->build_image = $request->input('build_image');
+        $build->build_code = $request->input('build_code');
+        $build->created_at = $request->input('created_at');
+        $build->updated_at = $request->input('updated_at');$build->save();
+        return redirect()->route('builds.index')->with('success', 'Build created successfully');
     }
 
     /**
