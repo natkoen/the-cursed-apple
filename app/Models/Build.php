@@ -19,7 +19,7 @@ class Build extends Model
     }
 
     public function tags() {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'build_tag', 'build_id', 'tag_id');
     }
 
     public function comments() {

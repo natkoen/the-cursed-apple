@@ -1,6 +1,5 @@
 <x-layout title="Create Build">
     <form method="POST" action="{{route('builds.store')}}">
-
                 <div>
                     <label for="hero_id">Hero</label>
                     <select id="hero_id" name="hero_id">
@@ -31,11 +30,11 @@
 
         <div>
             <label for="tag_id">Tags</label>
-            <select  id="tag_id" name="tag_id">
+
                 @foreach($tags as $tag)
-                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    <input type="checkbox" name="tag_id[]" value="{{$tag->id}}">{{$tag->name}}</input>
                 @endforeach
-            </select>
+
         </div>
 
         <div>
@@ -44,5 +43,6 @@
         <div>
             <button type="submit" class="border-2">Create Build</button>
         </div>
+        @csrf
     </form>
 </x-layout>

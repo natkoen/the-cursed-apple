@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Build;
 use App\Models\Comment;
 use App\Models\Hero;
 use App\Models\Tag;
@@ -31,6 +32,12 @@ return new class extends Migration
         Schema::table('builds', function (Blueprint $table) {
             $table->foreignIdFor(Comment::class)->nullable()->constrained()->cascadeOnDelete();
         });
+
+        Schema::create('build_tag', function (Blueprint $table) {
+            $table->foreignIdFor(Build::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
+        });
+
     }
 
     /**

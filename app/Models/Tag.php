@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     public function builds() {
-        return $this->hasMany(Build::class);
+        return $this->belongsToMany(Build::class, 'build_tag', 'tag_id', 'build_id');
     }
 }

@@ -15,7 +15,7 @@ class BuildController extends Controller
      */
     public function index()
     {
-        $builds = Build::all();
+        $builds = Build::with('tags')->get();
         $heroes = Hero::all();
         return view('builds.index', compact('builds', 'heroes'));
     }
@@ -43,8 +43,12 @@ class BuildController extends Controller
         $build->description = $request->input('description');
         $build->build_image = $request->input('build_image');
         $build->build_code = $request->input('build_code');
+
         $build->created_at = $request->input('created_at');
-        $build->updated_at = $request->input('updated_at');$build->save();
+        $build->updated_at = $request->input('updated_at');
+
+        $build->save();
+        $build->tags()->attach($request->input('tag_id'));
         return redirect()->route('builds.index')->with('success', 'Build created successfully');
     }
 
@@ -62,7 +66,8 @@ class BuildController extends Controller
      */
     public function edit(Build $build)
     {
-        return view('builds.edit', compact('build'));
+        $tags = Tag::all();
+        return view('builds.edit', compact('build', 'tags'));
     }
 
     /**
@@ -76,6 +81,7 @@ class BuildController extends Controller
         $build->build_code = $request->input('build_code');
         $build->updated_at = $request->input('updated_at');
         $build->save();
+        $build->tags()->sync($request->input('tag_id'));
         return redirect()->route('builds.index')->with('success', 'Build updated successfully');
     }
 

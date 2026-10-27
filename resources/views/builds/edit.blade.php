@@ -25,6 +25,14 @@
             <input type="hidden" id="updated_at" name="updated_at" value="{{ now() }}">
         </div>
         <div>
+            <label for="tag_id">Tags</label>
+
+            @foreach($tags as $tag)
+                <input type="checkbox" name="tag_id[]" value="{{$tag->id}}">{{$tag->name}}</input>
+            @endforeach
+
+        </div>
+        <div>
             <button type="submit" class="border-2">Update Build</button>
         </div>
     </form>
