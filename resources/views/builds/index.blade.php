@@ -23,7 +23,7 @@
         <x-card style="display: flex; flex-direction: row; justify-content: center; align-content: center">
             <h2>{{$build->name}}</h2>
             <p>{{$build->hero->name}}</p>
-            <img src=" " alt=""/>
+            <img src="{{Vite::asset($build->hero->image_url)}}" alt=""/>
             <p>Created at: {{$build->created_at}}</p>
             <a href="{{ route('builds.show', $build)}}">View Details</a>
         </x-card>

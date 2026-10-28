@@ -12,6 +12,7 @@
         </p>
         <p>This build was created by: {{$build->user->name}}</p>
         <p>Created at: {{$build->created_at}}</p>
+        <img src="{{Vite::asset($build->hero->image_url)}}" alt="">
         <p>Last updated at: {{$build->updated_at}}</p>
         @if(auth()->id() === $build->user_id)
             <a href="{{route('builds.edit', $build)}}">Edit Build</a>
