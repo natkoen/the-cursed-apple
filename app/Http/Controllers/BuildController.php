@@ -15,14 +15,18 @@ class BuildController extends Controller
      */
     public function index(Request $request)
     {
-//        @dd($request->input('hero_id'));
+//        @dd($request->input());
 //        dump to check what value to reflect in code for filter function heroes
-        $builds = Build::with('tags')->get();
+        $builds = Build::all();
         $heroes = Hero::all();
+//        $tags = Tag::all();
 
         if ($request->has('hero_id')) {
             $builds = Build::where('hero_id', $request->input('hero_id'))->get();
+//            $builds = Build::where('tag_id', $request->input('tag_id'))->get();
         }
+
+
         return view('builds.index', compact('builds', 'heroes'));
     }
 
