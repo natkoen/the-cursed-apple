@@ -46,12 +46,24 @@ class BuildController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "name" => "required|max:36",
+            "description" => "max:255",
+            "tag_id" => "required|max:3|array",
+            "tag_id.*" => "exists:tags,id",
+            "build_code" => "required|min:6|max:6",
+            "build_image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
+
+        ]);
         $build = new Build();
         $build->user_id = auth()->id();
         $build->hero_id = $request->input('hero_id');
         $build->name = $request->input('name');
         $build->description = $request->input('description');
-        $build->build_image = $request->input('build_image');
+
+        $build_image = $request->file('build_image')->storePublicly('images', 'public');
+        $build->build_image = $build_image;
+
         $build->build_code = $request->input('build_code');
 
         $build->created_at = $request->input('created_at');
@@ -85,13 +97,26 @@ class BuildController extends Controller
      */
     public function update(Request $request, Build $build)
     {
+        $request->validate([
+            "name" => "required|max:36",
+            "description" => "max:255",
+            "tag_id" => "required|array|max:3",
+            "tag_id*" => "exists:tags,id",
+            "build_code" => "required",
+            "build_image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
+        ]);
+
         $build->name = $request->input('name');
         $build->description = $request->input('description');
-        $build->build_image = $request->input('build_image');
+
+        $image = $request->file('build_image')->storePublicly('images', 'public');
+        $build->build_image = $image;
+
         $build->build_code = $request->input('build_code');
         $build->updated_at = $request->input('updated_at');
         $build->save();
         $build->tags()->sync($request->input('tag_id'));
+
         return redirect()->route('builds.index')->with('success', 'Build updated successfully');
     }
 
