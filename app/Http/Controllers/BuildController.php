@@ -13,10 +13,16 @@ class BuildController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+//        @dd($request->input('hero_id'));
+//        dump to check what value to reflect in code for filter function heroes
         $builds = Build::with('tags')->get();
         $heroes = Hero::all();
+
+        if ($request->has('hero_id')) {
+            $builds = Build::where('hero_id', $request->input('hero_id'))->get();
+        }
         return view('builds.index', compact('builds', 'heroes'));
     }
 
