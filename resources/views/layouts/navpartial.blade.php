@@ -27,7 +27,7 @@
                 </x-navlink>
 
                 <x-navlink href="{{route('dashboard')}}">
-                    Dashboard
+                    {{Auth::user()->name}}
                 </x-navlink>
             @else
             <x-navlink href="{{route('login')}}">

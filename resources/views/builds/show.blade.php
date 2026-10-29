@@ -15,7 +15,7 @@
         <img src="{{Vite::asset($build->hero->image_url)}}" alt="">
         <img src="{{asset('storage/' .$build->build_image)}}" alt="{{$build->name}}">
         <p>Last updated at: {{$build->updated_at}}</p>
-        @if(auth()->id() === $build->user_id)
+        @if(auth()->id() === $build->user_id || Auth::user()->role === 0)
             <a href="{{route('builds.edit', $build)}}">Edit Build</a>
             <form action="{{route('builds.destroy', $build)}}" method="POST" style="display: inline;">
                 @csrf

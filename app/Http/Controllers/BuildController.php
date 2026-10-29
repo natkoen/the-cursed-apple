@@ -79,6 +79,7 @@ class BuildController extends Controller
      */
     public function show(Build $build)
     {
+
         $user = User::where('id', $build->user_id)->first();
         return view('builds.show', compact('build', 'user'));
     }
