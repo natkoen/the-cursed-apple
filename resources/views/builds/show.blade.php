@@ -14,8 +14,10 @@
         <p>Created at: {{$build->created_at}}</p>
         <img src="{{Vite::asset($build->hero->image_url)}}" alt="">
         <img src="{{asset('storage/' .$build->build_image)}}" alt="{{$build->name}}">
+
         <p>Last updated at: {{$build->updated_at}}</p>
-        @if(auth()->id() === $build->user_id || Auth::user()->role === 0)
+
+        @if(auth()->id() === $build->user_id || Auth::user()->role === "1")
             <a href="{{route('builds.edit', $build)}}">Edit Build</a>
             <form action="{{route('builds.destroy', $build)}}" method="POST" style="display: inline;">
                 @csrf
@@ -24,4 +26,9 @@
             </form>
         @endif
     </x-card>
+
+        <x-comment-box :build="$build" :comments="$comments">
+
+        </x-comment-box>
+
 </x-layout>

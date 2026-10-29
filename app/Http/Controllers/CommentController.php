@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Build;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,16 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Build $build)
     {
-        //
+        $comment = new Comment();
+        $comment->comment = $request->input('comment');
+        $comment->user_id = auth()->id();
+        $comment->build_id = $build->id;
+
+        $comment->save();
+
+        return redirect('/builds/' . $build->id);
     }
 
     /**
@@ -58,8 +66,12 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Build $build, Comment $comment, Request $request)
     {
-        //
+//        @dd($request);
+        abort_unless($comment->build_id === $build->id, 404);
+
+        $comment->delete();
+        return redirect()->route('builds.show', $build->id);
     }
 }

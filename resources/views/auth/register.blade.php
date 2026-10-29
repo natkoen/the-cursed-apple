@@ -3,7 +3,7 @@
         @csrf
 
 {{--        id--}}
-        <input id="role" name="role" type="hidden" value="1">
+        <input id="role" name="role" type="hidden" value="0">
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />

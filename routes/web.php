@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BuildController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
@@ -18,12 +19,17 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 //builds page route
 Route::resource('/builds', BuildController::class);
+
+//Comments for builds
+Route::resource('comments', CommentController::class);
+Route::post('/builds/{build}/comments', [CommentController::class, 'store'])->name('builds.comments.store');
+Route::delete('/builds/{build}/comments/{comment}', [CommentController::class, 'destroy'])->name('builds.comments.destroy');
 Route::resource('/heroes', HeroController::class);
 
 //contact page route
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-//some kinda dashboard for users?
+//Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

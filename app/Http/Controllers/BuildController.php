@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
+use App\Models\Comment;
 use App\Models\Hero;
 use App\Models\Tag;
 use App\Models\User;
@@ -81,7 +82,10 @@ class BuildController extends Controller
     {
 
         $user = User::where('id', $build->user_id)->first();
-        return view('builds.show', compact('build', 'user'));
+        $comments = Comment::where('build_id', $build->id)->get();
+
+
+        return view('builds.show', compact('build', 'user', 'comments'));
     }
 
     /**
