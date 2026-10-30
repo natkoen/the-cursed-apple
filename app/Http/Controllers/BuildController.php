@@ -36,6 +36,7 @@ class BuildController extends Controller
      */
     public function create()
     {
+        $this-> authorize('create', Build::class);
         $heroes = Hero::all();
         $tags = Tag::all();
 
@@ -47,6 +48,8 @@ class BuildController extends Controller
      */
     public function store(Request $request)
     {
+        $this-> authorize('create', Build::class);
+
         $request->validate([
             "name" => "required|max:36",
             "description" => "max:255",

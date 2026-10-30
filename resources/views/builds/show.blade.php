@@ -17,14 +17,16 @@
 
         <p>Last updated at: {{$build->updated_at}}</p>
 
-        @if(auth()->id() === $build->user_id || Auth::user()->role === "1")
-            <a href="{{route('builds.edit', $build)}}">Edit Build</a>
-            <form action="{{route('builds.destroy', $build)}}" method="POST" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete Build</button>
-            </form>
-        @endif
+        @auth
+            @if(auth()->id() === $build->user_id || Auth::user()->role === "1")
+                <a href="{{route('builds.edit', $build)}}">Edit Build</a>
+                <form action="{{route('builds.destroy', $build)}}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete Build</button>
+                </form>
+            @endif
+        @endauth
     </x-card>
 
         <x-comment-box :build="$build" :comments="$comments">

@@ -1,4 +1,5 @@
 <x-card>
+    @auth
     <form action="{{ route('builds.comments.store', ['build' => $build])}}" method="POST">
 
     <div>
@@ -11,6 +12,11 @@
 
         @csrf
     </form>
+    @elseauth
+        <div>
+        <h2>You have to be logged in to leave a comment.</h2>
+        </div>
+    @endauth
 </x-card>
 @foreach($comments as $comment)
 
