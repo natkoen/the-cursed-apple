@@ -8,6 +8,7 @@ use App\Models\Hero;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BuildController extends Controller
 {
@@ -18,9 +19,8 @@ class BuildController extends Controller
     {
 //        @dd($request->input());
 //        dump to check what value to reflect in code for filter function heroes
-        $builds = Build::all();
+        $builds = Build::where('active', 1)->orderBy('created_at', 'desc')->paginate(15);
         $heroes = Hero::all();
-//        $tags = Tag::all();
 
         if ($request->has('hero_id')) {
             $builds = Build::where('hero_id', $request->input('hero_id'))->get();
@@ -86,7 +86,6 @@ class BuildController extends Controller
 
         $user = User::where('id', $build->user_id)->first();
         $comments = Comment::where('build_id', $build->id)->get();
-
 
         return view('builds.show', compact('build', 'user', 'comments'));
     }

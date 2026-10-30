@@ -20,6 +20,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Hero::class)->constrained()->cascadeOnDelete();
+
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('build_image');
@@ -30,6 +31,7 @@ return new class extends Migration
         });
 
         Schema::table('builds', function (Blueprint $table) {
+            $table->boolean('active')->default(true);
             $table->foreignIdFor(Comment::class)->nullable()->constrained()->cascadeOnDelete();
         });
 

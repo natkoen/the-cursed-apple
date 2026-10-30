@@ -30,7 +30,8 @@ class BuildPolicy
      */
     public function create(User $user): Response
     {
-        return Comment::where('user_id', $user->id)->count() >= 3
+        //Check whether current user has enough comments posted OR is admin
+        return Comment::where('user_id', $user->id)->count() >= 3 || $user->role == 1
         ? Response::allow()
         : Response::deny('You have to make atleast 3 comments to create your own builds.');
     }
