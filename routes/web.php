@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HeroController;
@@ -29,10 +30,20 @@ Route::resource('/heroes', HeroController::class);
 //contact page route
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-//Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+////Dashboard of breeze
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+//my own dashboard
+Route::middleware(['auth', 'verified'])->prefix('/admin')->as('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
+    Route::get('/builds', [AdminController::class, 'builds'])->name('builds');
+    Route::patch('/activeBuild/{build}', [AdminController::class, 'activeBuild'])->name('activeBuild');
+
+    Route::get('/heroes', [AdminController::class, 'heroes'])->name('heroes');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

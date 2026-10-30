@@ -18,7 +18,7 @@
         <p>Last updated at: {{$build->updated_at}}</p>
 
         @auth
-            @if(auth()->id() == $build->user_id || Auth::user()->role == "1")
+            @if(auth()->id() == $build->user_id || auth()->user()->role() == "1")
                 <a href="{{route('builds.edit', $build)}}">Edit Build</a>
                 <form action="{{route('builds.destroy', $build)}}" method="POST" style="display: inline;">
                     @csrf

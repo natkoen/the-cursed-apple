@@ -26,9 +26,21 @@
                     Create a Build
                 </x-navlink>
 
-                <x-navlink href="{{route('dashboard')}}">
-                    {{Auth::user()->name}}
+            @if(Auth::user()->role == "1")
+                <x-navlink href="{{route('admin.dashboard')}}">
+                    Admin Overview
                 </x-navlink>
+            @endif
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')"
+                                 onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-dropdown-link>
+            </form>
+
             @else
             <x-navlink href="{{route('login')}}">
                 Login

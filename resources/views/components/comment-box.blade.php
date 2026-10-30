@@ -25,7 +25,7 @@
                 {{$comment->comment}}
                 {{$comment->created_at}}
 
-        @if(auth()->id() === $comment->user->id || Auth::user()->role === "1")
+        @if(auth()->id() == $comment->user->id || auth()->user()->role() == "1")
             <form action="{{ route('builds.comments.destroy', ['build' => $build,'comment' => $comment]) }}" method="POST">
                 @csrf
                 @method('DELETE')

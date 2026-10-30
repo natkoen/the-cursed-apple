@@ -72,6 +72,6 @@ class CommentController extends Controller
         abort_unless($comment->build_id === $build->id, 404);
 
         $comment->delete();
-        return redirect()->route('builds.show', $build->id);
+        return redirect()->route('builds.show', $build->id  );
     }
 }

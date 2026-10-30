@@ -95,6 +95,7 @@ class BuildController extends Controller
      */
     public function edit(Build $build)
     {
+        abort_unless(auth()->user()->role === 1 || auth()->user()->id() == $build->user->id, 403);
         $tags = Tag::all();
         return view('builds.edit', compact('build', 'tags'));
     }
