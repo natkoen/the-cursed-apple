@@ -1,3 +1,3 @@
-<div class="card" style="background: #e3eee3; padding: 0.7rem; text-align: center; margin: 2rem; border-radius: 0.5rem;">
+<div class="bg-[#242425] rounded-sm p-3 m-3 justify-between flex flex-row bg-opacity-75">
     {{$slot}}
 </div>

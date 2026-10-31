@@ -39,6 +39,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::middleware(['auth', 'verified'])->prefix('/admin')->as('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
+    //Admin control for builds
     Route::get('/builds', [AdminController::class, 'builds'])->name('builds');
     Route::patch('/activeBuild/{build}', [AdminController::class, 'activeBuild'])->name('activeBuild');
 

@@ -1,6 +1,6 @@
-<nav>
+<nav class="flex flex-row justify-center align-center bg-[#242424] mb-3 p-1">
     <x-navlink href="{{route('home')}}"    :active="request()->routeIs('home')">
-        Home
+        <img src="{{Vite::asset('resources/images/general/logo.png')}}" class="object-center size-10" alt="">
     </x-navlink>
 
     <x-navlink href="{{route('heroes.index')}}"   :active="request()->routeIs('heroes.index')">
