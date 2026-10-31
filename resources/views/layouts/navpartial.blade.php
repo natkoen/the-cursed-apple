@@ -19,7 +19,6 @@
         About
     </x-navlink>
 
-
     @if (Route::has('login'))
             @auth
                 <x-navlink href="{{route('builds.create')}}" :active="request()->routeIs('builds.create')">
@@ -31,6 +30,11 @@
                     Admin Overview
                 </x-navlink>
             @endif
+
+            <x-navlink href="{{route('profile.edit')}}"   :active="request()->routeIs('profile.edit')">
+                Manage Account
+            </x-navlink>
+
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
