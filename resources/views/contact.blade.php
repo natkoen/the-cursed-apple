@@ -1,9 +1,13 @@
-<x-layout>
-    <h1>Contact Us</h1>
-    <p>Feel free to reach out to {{$company}} with any questions or concerns!</p>
-    <p>
-        phone number n whatever
+<x-layout title="Contact">
+    <x-card>
+        <div class="flex flex-col text-sm">
+            <div>
+                If you ever feel like reaching out to {{$company}}, well...
+            </div>
 
-    </p>
-
+            <div>
+                Too bad. Enjoy browsing though!
+            </div>
+        </div>
+    </x-card>
 </x-layout>

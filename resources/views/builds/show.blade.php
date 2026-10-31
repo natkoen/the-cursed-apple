@@ -3,7 +3,7 @@
 
     <x-card>
         <div class="flex flex-row w-full justify-between font-serif">
-            <div id="build-text" class="flex flex-1 flex-col text-left gap-y-0.5">
+            <div id="build-text" class="flex flex-1 flex-col text-left gap-y-0.5 m-2">
                 <div class="mb-3">
                     <h3 class="font-bold italic text-neutral-300 text-3xl">{{$build->name}}</h3>
                     <img src="{{Vite::asset($build->hero->image_url)}}" alt="">
@@ -67,9 +67,8 @@
                             {{$build->updated_at}}
                     </div>
                 </div>
-
                 @auth
-                    @if(auth()->id() == $build->user_id || auth()->user()->role() == "1")
+                    @if(auth()->id() == $build->user_id || auth()->user()->role == "1")
                         <div class="flex flex-row justify-start gap-x-3">
                             <a class="p-2 bg-[#363636] font-mono uppercase text-neutral-100" href="{{route('builds.edit', $build)}}">Edit Build</a>
 

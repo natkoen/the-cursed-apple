@@ -2,7 +2,7 @@
     @auth
     <form class="flex flex-col w-full gap-y-2" action="{{ route('builds.comments.store', ['build' => $build])}}" method="POST">
         <div>
-                <textarea name="comment" id="comment" rows="3" class="bg-neutral-500 opacity-5 border rounded-sm block w-full p-3.5 shadow-xs placeholder:text-body"></textarea>
+                <textarea name="comment" id="comment" rows="3" class="bg-neutral-500 bg-opacity-5 opacity-100 border rounded-sm block text-heading text-sm text-neutral-200 w-full p-3.5 shadow-xs"></textarea>
         </div>
 
         <div>
@@ -31,7 +31,7 @@
             </div>
 
 
-            @if(auth()->id() == $comment->user->id || auth()->user()->role() == "1")
+            @if(auth()->id() == $comment->user->id || auth()->user()->role == "1")
                 <form action="{{ route('builds.comments.destroy', ['build' => $build,'comment' => $comment]) }}" method="POST">
                     @csrf
                     @method('DELETE')

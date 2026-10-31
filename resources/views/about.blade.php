@@ -1,3 +1,5 @@
 <x-layout title="About Us">
-<h1>{{$introText}}</h1>
+<x-card>
+    <div>{{$introText}}</div>
+</x-card>
 </x-layout>

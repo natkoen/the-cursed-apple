@@ -10,6 +10,8 @@
                 @endforeach
             </select>
 
+            <input type="text" name="search" value="{{request('search')}}" placeholder="Search build...">
+
             <a class="p-2 bg-[#363636] font-mono uppercase text-neutral-100" href="{{ route('builds.index') }}">Remove Filters</a>
 
             <button type="submit" class="p-2 bg-[#363636] font-mono uppercase text-neutral-100">Filter</button>

@@ -9,7 +9,7 @@
             $slot
         </x-left-sidebar>
 
-        <table>
+        <table class="table w-full text-neutral-100 text-center">
             <thead>
             <tr>
                 <th>Hero</th>
@@ -19,9 +19,9 @@
 
             <tbody>
             @foreach($heroes as $hero)
-                <tr>
-                    <th>{{$hero->name}}</th>
-                    <th>{{$hero->created_at->toDateString()}}</th>
+                <tr class="bg-[#111111] text-neutral-400">
+                    <td>{{$hero->name}}</td>
+                    <td>{{$hero->created_at->toDateString()}}</td>
                 </tr>
             @endforeach
             </tbody>

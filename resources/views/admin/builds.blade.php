@@ -10,9 +10,9 @@
         $slot
     </x-left-sidebar>
 
-    <table>
+    <table class="table w-full text-neutral-100 text-center">
         <thead>
-            <tr>
+            <tr class="bg-[#242424]">
                 <th>Build</th>
                 <th>User</th>
                 <th>Hero</th>
@@ -23,7 +23,7 @@
 
         <tbody>
         @foreach($builds as $build)
-            <tr>
+            <tr class="bg-[#111111] text-neutral-400">
                 <td>{{$build->name}}</td>
                 <td>{{$build->user->name}}</td>
                 <td>{{$build->hero->name}}</td>
@@ -34,12 +34,12 @@
                     @method('PATCH')
 
                     @if($build->active == "1")
-                        <button type="submit">
-                            Enable
+                        <button type="submit" class="py-1 px-3 rounded bg-[#663636] font-mono uppercase text-neutral-100">
+                            Disable
                         </button>
                     @else
-                        <button type="submit">
-                            Disable
+                        <button type="submit" class="py-1 px-3 rounded bg-[#366636] font-mono uppercase text-neutral-100">
+                            Enable
                         </button>
                     @endif
                 </form>

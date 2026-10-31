@@ -1,12 +1,16 @@
 <x-layout title="Heroes">
-    @foreach($heroes as $hero)
-    <x-card>
+    <div class="grid grid-cols-8 text-neutral-100 text-center">
+        @foreach($heroes as $hero)
+            <x-card>
+                    <div class="flex flex-col justify-center items-center w-full">
 
+                        <h2 class="font-serif text-xl uppercase mb-1 italic">{{$hero->name}}</h2>
 
-            <h2>{{$hero->name}}</h2>
-            <p>Created at: {{$hero->created_at}}</p>
-        <img src="{{Vite::asset($hero->image_url)}}" alt="{{$hero->name}}">
-            <a href="{{ route('heroes.show', $hero)}}">View Details</a>
-    </x-card>
-    @endforeach
+                        <a href="{{ route('heroes.show', $hero)}}">
+                            <img class="object-contain" src="{{Vite::asset($hero->image_url)}}" alt="{{$hero->name}}">
+                        </a>
+                    </div>
+            </x-card>
+        @endforeach
+    </div>
 </x-layout>

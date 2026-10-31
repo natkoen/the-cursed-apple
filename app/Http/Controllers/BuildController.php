@@ -17,15 +17,23 @@ class BuildController extends Controller
      */
     public function index(Request $request)
     {
-//        @dd($request->input());
-//        dump to check what value to reflect in code for filter function heroes
-        $builds = Build::where('active', 1)->orderBy('created_at', 'desc')->paginate(15);
-        $heroes = Hero::all();
+        $filters = $request->validate([
+           'search' => 'nullable|string|max:255',
+            'hero_id' => 'nullable|integer|exists:heroes,id'
+        ]);;
 
-        if ($request->has('hero_id')) {
-            $builds = Build::where('hero_id', $request->input('hero_id'))->get();
-//            $builds = Build::where('tag_id', $request->input('tag_id'))->get();
-        }
+        $query = Build::query()->where('active',1)->orderBy('created_at','desc');
+
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%");
+        });
+
+        $query->when($filters['hero_id'] ?? null, function ($query, $hero_id) {
+            $query->where('hero_id', $hero_id);
+        });
+
+        $builds = $query->get();
+        $heroes = Hero::all();
 
 
         return view('builds.index', compact('builds', 'heroes'));
@@ -48,6 +56,7 @@ class BuildController extends Controller
      */
     public function store(Request $request)
     {
+
         $this-> authorize('create', Build::class);
 
         $request->validate([
@@ -59,6 +68,7 @@ class BuildController extends Controller
             "build_image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
 
         ]);
+
         $build = new Build();
         $build->user_id = auth()->id();
         $build->hero_id = $request->input('hero_id');
@@ -95,7 +105,7 @@ class BuildController extends Controller
      */
     public function edit(Build $build)
     {
-        abort_unless(auth()->user()->role === 1 || auth()->user()->id() == $build->user->id, 403);
+        abort_unless(auth()->user()->role === 1 || auth()->user()->id == $build->user->id, 403);
         $tags = Tag::all();
         return view('builds.edit', compact('build', 'tags'));
     }
@@ -111,14 +121,17 @@ class BuildController extends Controller
             "tag_id" => "required|array|max:3",
             "tag_id*" => "exists:tags,id",
             "build_code" => "required",
-            "build_image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
+            "build_image" => "sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
         ]);
+
 
         $build->name = $request->input('name');
         $build->description = $request->input('description');
 
-        $image = $request->file('build_image')->storePublicly('images', 'public');
-        $build->build_image = $image;
+        if ($request->hasFile('build_image')) {
+            $build->build_image = $request->file('build_image')->storePublicly('images', 'public');
+        }
+
 
         $build->build_code = $request->input('build_code');
         $build->updated_at = $request->input('updated_at');
